@@ -1,6 +1,9 @@
 import {AnyAction, combineReducers, configureStore, ThunkDispatch} from "@reduxjs/toolkit";
+import {sharesSlice} from "features/Shares/sharesSlice";
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({
+  sharesReducer: sharesSlice
+})
 
 export const store = configureStore({
   reducer: rootReducer,

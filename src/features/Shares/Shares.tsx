@@ -1,77 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './shares.module.scss'
 import {TableBody} from "common/compontnes/Table/TableBody/TableBody";
 import {TableHead} from "common/compontnes/Table/TableHead/TableHead";
-
-const items = [
-  {
-    id: '1',
-    order: '1',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '2',
-    order: '2',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '3',
-    order: '3',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '4',
-    order: '4',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '5',
-    order: '5',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '6',
-    order: '6',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '7',
-    order: '7',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '8',
-    order: '8',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '9',
-    order: '9',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  },
-  {
-    id: '10',
-    order: '10',
-    title: 'lorem porem sorem',
-    date: '05.04.2022'
-  }
-]
+import {useAppSelector} from "hooks/useAppSelector";
+import {sharesSelector} from "features/Shares/sharesSelectors";
+import {useAppDispatch} from "hooks/useAppDispatch";
+import {fetchSharesTC} from "features/Shares/sharesSlice";
 
 export const Shares = () => {
+
+  const tableHeadRows = ['order', 'symbol', 'sector' , 'securityType', 'bid price', 'bid size', 'asc price', 'asc size', 'date', 'last sale price', 'last sale size', 'last sale time', 'volume']
+
+  const shares = useAppSelector(sharesSelector)
+
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchSharesTC())
+  }, [dispatch])
+
   return (
     <div>
       <table className={s.table}>
-        <TableHead rows={['order', 'title', 'date']}/>
-        <TableBody items={items}/>
+        <TableHead rows={tableHeadRows}/>
+        <TableBody items={shares}/>
       </table>
     </div>
   );
