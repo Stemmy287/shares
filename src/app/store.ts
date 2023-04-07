@@ -1,7 +1,9 @@
 import {AnyAction, combineReducers, configureStore, ThunkDispatch} from "@reduxjs/toolkit";
 import {sharesSlice} from "features/Shares/sharesSlice";
+import {appSlice} from "app/appSlice";
 
 const rootReducer = combineReducers({
+  app: appSlice,
   sharesReducer: sharesSlice
 })
 

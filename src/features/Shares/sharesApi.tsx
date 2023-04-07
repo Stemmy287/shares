@@ -5,8 +5,8 @@ const instance = axios.create({
 })
 
 export const sharesApi = {
-  getShares() {
-    return instance.get<SharesType[]>('stable//stock/tsla/chart/?token=pk_7aff2648ca544d38a1f4cdf7bbe7f11d')
+  getShares(company: string) {
+    return instance.get<SharesType[]>(`stable/stock/${company}/chart/?token=pk_7aff2648ca544d38a1f4cdf7bbe7f11d`)
       .then(res => res.data)
   }
 }

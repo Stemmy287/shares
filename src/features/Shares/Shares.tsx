@@ -6,16 +6,20 @@ import {useAppSelector} from "hooks/useAppSelector";
 import {useAppDispatch} from "hooks/useAppDispatch";
 import {fetchSharesTC, paginator, setCurrentPage, setPageSize} from "features/Shares/sharesSlice";
 import {
+  companySelector,
   currentPageSelector,
   pageSizeSelector,
-  sharesSelector,
+  sharesPaginatedSelector,
   totalItemsCountSelector
 } from "features/Shares/sharesSelectors";
 import {Pagination} from "common/compontnes/Pagintaton/Pagination";
+import {readableCompany} from "common/utils/readableCompany";
 
 export const Shares = () => {
 
-  const shares = useAppSelector(sharesSelector)
+  const sharesPaginated = useAppSelector(sharesPaginatedSelector)
+
+  const company = useAppSelector(companySelector)
 
   const currentPage = useAppSelector(currentPageSelector)
   const pageSize = useAppSelector(pageSizeSelector)
@@ -24,9 +28,8 @@ export const Shares = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    debugger
     dispatch(fetchSharesTC())
-  }, [dispatch])
+  }, [dispatch, company])
 
   useEffect(() => {
     dispatch(paginator())
@@ -40,14 +43,15 @@ export const Shares = () => {
     dispatch(setPageSize({pageSize: +pageSize}))
   }
 
-  const tableHeadRows = ['Order', 'Company', 'Open', 'Close', 'High', 'Low', 'Volume', 'Date']
+  const tableHeadRows = ['Order', 'Open', 'Close', 'High', 'Low', 'Volume', 'Date']
 
   return (
-    <div>
-      <table className={s.table}>
-        <TableHead rows={tableHeadRows}/>
-        <TableBody items={shares}/>
-      </table>
+    <div className={s.shares_container}>
+      <h1 className={s.title}>{readableCompany(company)}</h1>
+        <table className={s.table}>
+          <TableHead rows={tableHeadRows}/>
+          <TableBody items={sharesPaginated}/>
+        </table>
       <div className={s.pagination_container}>
         <Pagination
           currentPage={currentPage}
