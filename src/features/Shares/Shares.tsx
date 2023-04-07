@@ -3,13 +3,13 @@ import s from './shares.module.scss'
 import {TableBody} from "common/compontnes/Table/TableBody/TableBody";
 import {TableHead} from "common/compontnes/Table/TableHead/TableHead";
 import {useAppSelector} from "hooks/useAppSelector";
-import {sharesSelector} from "features/Shares/sharesSelectors";
 import {useAppDispatch} from "hooks/useAppDispatch";
 import {fetchSharesTC} from "features/Shares/sharesSlice";
+import {sharesSelector} from "features/Shares/sharesSelectors";
 
 export const Shares = () => {
 
-  const tableHeadRows = ['order', 'symbol', 'sector' , 'securityType', 'bid price', 'bid size', 'asc price', 'asc size', 'date', 'last sale price', 'last sale size', 'last sale time', 'volume']
+  const tableHeadRows = ['Order', 'Company', 'Open', 'Close', 'High', 'Low', 'Volume', 'Date']
 
   const shares = useAppSelector(sharesSelector)
 

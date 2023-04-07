@@ -14,11 +14,20 @@ export const slice = createSlice({
   name: 'sharesSlice',
   initialState: {
     shares: [] as DomainSharesType[],
+    pagination: {
+      currentPage: 0,
+      pageSize: 10,
+      totalItemsCount: 0,
+      paginationData: [] as DomainSharesType[]
+    }
   },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchSharesTC.fulfilled, (state, action) => {
-      state.shares = action.payload.res.map((shr, i) => ({order: i + 1,...shr}))
+      state.pagination.totalItemsCount = action.payload.res.length
+      const start = state.pagination.pageSize * state.pagination.currentPage
+      const end = start + state.pagination.pageSize
+      state.shares = action.payload.res.map((shr, i) => ({order: i + 1,...shr})).slice(start, end)
     })
   }
 })
@@ -27,3 +36,4 @@ export const sharesSlice = slice.reducer
 
 //types
 export type DomainSharesType = SharesType & {order: number}
+

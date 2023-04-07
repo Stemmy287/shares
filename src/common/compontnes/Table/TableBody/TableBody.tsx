@@ -10,19 +10,15 @@ export const TableBody:FC<PropsType> = ({items}) => {
   return (
     <tbody>
     {items.map((el) =>
-      <tr className={s.cells}>
+      <tr key={el.order} className={s.cells}>
         <td>{el.order}</td>
         <td>{el.symbol}</td>
-        <td>{el.securityType}</td>
-        <td>{el.bidPrice}</td>
-        <td>{el.bidSize}</td>
-        <td>{el.askPrice}</td>
-        <td>{el.askSize}</td>
-        <td>{el.lastUpdated}</td>
-        <td>{el.lastSalePrice}</td>
-        <td>{el.lastSaleSize}</td>
-        <td>{el.lastSaleTime}</td>
+        <td>{el.open}</td>
+        <td>{el.close}</td>
+        <td>{el.high}</td>
+        <td>{el.low}</td>
         <td>{el.volume}</td>
+        <td>{el.date}</td>
       </tr>
     )}
     </tbody>
