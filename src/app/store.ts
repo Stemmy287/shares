@@ -13,6 +13,3 @@ export const store = configureStore({
 //types
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppThunkDispatchType = ThunkDispatch<AppRootStateType, any, AnyAction>
-
-// @ts-ignore
-window.store = store

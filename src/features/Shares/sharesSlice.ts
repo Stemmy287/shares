@@ -1,10 +1,11 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {sharesApi, SharesType} from "features/Shares/sharesApi";
 
-export const fetchSharesTC = createAsyncThunk('shares/fetchShares', async (param, {rejectWithValue}) => {
+export const fetchSharesTC = createAsyncThunk('shares/fetchShares', async (param, {rejectWithValue, dispatch}) => {
   try {
     const res = await sharesApi.getShares()
-    return {res}
+    dispatch(setShares(res))
+    dispatch(paginator())
   } catch (e) {
     return rejectWithValue(null)
   }
@@ -15,25 +16,34 @@ export const slice = createSlice({
   initialState: {
     shares: [] as DomainSharesType[],
     pagination: {
-      currentPage: 0,
+      currentPage: 1,
       pageSize: 10,
       totalItemsCount: 0,
       paginationData: [] as DomainSharesType[]
     }
   },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(fetchSharesTC.fulfilled, (state, action) => {
-      state.pagination.totalItemsCount = action.payload.res.length
-      const start = state.pagination.pageSize * state.pagination.currentPage
+  reducers: {
+    setShares(state, action: PayloadAction<SharesType[]>) {
+      state.shares = action.payload.map((shr, i) => ({order: i + 1, ...shr}))
+    },
+    paginator(state) {
+      state.pagination.totalItemsCount = state.shares.length
+      const start = state.pagination.pageSize * (state.pagination.currentPage - 1)
       const end = start + state.pagination.pageSize
-      state.shares = action.payload.res.map((shr, i) => ({order: i + 1,...shr})).slice(start, end)
-    })
+      state.pagination.paginationData = state.shares.slice(start, end)
+    },
+    setCurrentPage(state, action: PayloadAction<{currentPage: number}>) {
+      state.pagination.currentPage = action.payload.currentPage
+    },
+    setPageSize(state, action: PayloadAction<{pageSize: number}>) {
+      state.pagination.pageSize = action.payload.pageSize
+    }
   }
 })
 
 export const sharesSlice = slice.reducer
+export const {setShares, paginator, setCurrentPage, setPageSize} = slice.actions
 
 //types
-export type DomainSharesType = SharesType & {order: number}
+export type DomainSharesType = SharesType & { order: number }
 

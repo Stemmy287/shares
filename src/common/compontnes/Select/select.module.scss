@@ -1,0 +1,14 @@
+.select {
+  border: 1px solid #DEDBDC;
+  border-radius: 3px;
+  background: transparent;
+  padding: 5px;
+  outline: hidden;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  .option {
+    background-color: #faf7f8;
+  }
+}
