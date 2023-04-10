@@ -18,3 +18,6 @@ const slice = createSlice({
 
 export const appReducer = slice.reducer
 export const {setLoading, setError} = slice.actions
+
+//types
+export type InitialAppStateType = ReturnType<typeof slice.getInitialState>

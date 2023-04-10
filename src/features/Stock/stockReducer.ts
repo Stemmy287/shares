@@ -70,5 +70,5 @@ export const {setStock, paginator, setCurrentPage, setPageSize, setCompany} = sl
 export type DomainStockType = StockType & { order: number }
 export type CompanyType = 'tsla' | 'amzn' | 'aapl' | 'msft'
 
-export type InitialStateType = ReturnType<typeof slice.getInitialState>
+export type InitialStockStateType = ReturnType<typeof slice.getInitialState>
 

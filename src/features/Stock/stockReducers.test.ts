@@ -1,14 +1,14 @@
 import {
   CompanyType,
   DomainStockType,
-  InitialStateType, paginator, setCompany,
+  InitialStockStateType, paginator, setCompany,
   setCurrentPage,
   setPageSize, setStock,
   stockReducer
 } from "features/Stock/stockReducer";
 import {stockData} from "common/assets/stockDataForTests";
 
-let initialState: InitialStateType
+let initialState: InitialStockStateType
 
 beforeEach(() => {
   initialState = {
