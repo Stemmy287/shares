@@ -4,7 +4,7 @@ import {DomainSharesType, paginator, setShares} from "features/Shares/sharesSlic
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {useAppDispatch} from "hooks/useAppDispatch";
 import {useAppSelector} from "hooks/useAppSelector";
-import {sharesSelector} from "features/Shares/sharesSelectors";
+import {currentPageSelector, pageSizeSelector, sharesSelector} from "features/Shares/sharesSelectors";
 
 type PropsType = {
   items: DomainSharesType[]
@@ -14,14 +14,35 @@ export const TableBody: FC<PropsType> = ({items}) => {
 
   const dispatch = useAppDispatch()
 
-  const Shares = useAppSelector(sharesSelector)
+  const shares = useAppSelector(sharesSelector)
+
+  const currentPage = useAppSelector(currentPageSelector)
+
+  const pageSize = useAppSelector(pageSizeSelector)
 
   const handleDragEnd = (result: any) => {
-    const array = Array.from(Shares)
+    if (!result.destination) return
+
+    const array = Array.from(shares)
+
     const [reorderedItem] = array.splice(result.source.index, 1)
+
     array.splice(result.destination.index, 0, reorderedItem)
     dispatch(setShares(array))
     dispatch(paginator())
+
+  };
+
+  const getItemStyle = (isDragging: any, draggableStyle: any) => {
+
+    return {
+      background: isDragging ? '#F8346B' : '',
+      color: isDragging ? '#FCFCFB' : '',
+      display: isDragging ? 'flex' : '',
+      justifyContent: isDragging ? 'space-around' : '',
+      ...draggableStyle
+    }
+    
   };
 
   return (
@@ -30,10 +51,17 @@ export const TableBody: FC<PropsType> = ({items}) => {
         {(provided) => (
           <tbody {...provided.droppableProps} ref={provided.innerRef}>
           {items.map((el, i) =>
-            <Draggable draggableId={el.order.toString()} key={el.order} index={i}>
-              {(provided) => (
+            <Draggable draggableId={el.order.toString()} key={el.order} index={currentPage > 1 ? i + (pageSize * (currentPage - 1)) : i}>
+              {(provided, snapshot) => (
                 <tr className={s.cells}
-                    ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
+                    )}
+                >
                   <td>{el.order}</td>
                   <td>{el.open}</td>
                   <td>{el.close}</td>
