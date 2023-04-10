@@ -4,15 +4,15 @@ const instance = axios.create({
   baseURL: 'https://cloud.iexapis.com/'
 })
 
-export const sharesApi = {
-  getShares(company: string) {
-    return instance.get<SharesType[]>(`stable/stock/${company}/chart/?token=pk_7aff2648ca544d38a1f4cdf7bbe7f11d`)
+export const stockApi = {
+  getStock(company: string) {
+    return instance.get<StockType[]>(`stable/stock/${company}/chart/?token=pk_7aff2648ca544d38a1f4cdf7bbe7f11d`)
       .then(res => res.data)
   }
 }
 
 //types
-export type SharesType = {
+export type StockType = {
   close: number
   high: number
   low: number

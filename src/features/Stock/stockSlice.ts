@@ -1,12 +1,12 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {sharesApi, SharesType} from "features/Shares/sharesApi";
+import {stockApi, StockType} from "features/Stock/stockApi";
 import {AppRootStateType} from "app/store";
 import {setLoading} from "app/appSlice";
-import {errorUtil} from "common/utils/errorUtils";
+import {errorHandler} from "common/utils/errorHandler/errorHandler";
 import {AxiosError} from "axios";
 
 
-export const fetchSharesTC = createAsyncThunk('shares/fetchShares', async (param, {
+export const fetchStockTC = createAsyncThunk('shares/fetchShares', async (param, {
   dispatch,
   getState
 }) => {
@@ -14,23 +14,23 @@ export const fetchSharesTC = createAsyncThunk('shares/fetchShares', async (param
   dispatch(setLoading({isLoading: true}))
 
   const state = getState() as AppRootStateType
-  const company = state.sharesReducer.queryParams.company
+  const company = state.stockReducer.queryParams.company
 
   try {
-    const res = await sharesApi.getShares(company)
-    dispatch(setShares(res))
+    const res = await stockApi.getStock(company)
+    dispatch(setStock(res))
     dispatch(paginator())
   } catch (e) {
-    errorUtil(e as Error | AxiosError<{ error: string }>, dispatch)
+    errorHandler(e as Error | AxiosError<{ error: string }>, dispatch)
   } finally {
     dispatch(setLoading({isLoading: false}))
   }
 })
 
 export const slice = createSlice({
-  name: 'sharesSlice',
+  name: 'stockSlice',
   initialState: {
-    shares: [] as DomainSharesType[],
+    stock: [] as DomainStockType[],
     queryParams: {
       company: 'tsla' as CompanyType
     },
@@ -38,18 +38,18 @@ export const slice = createSlice({
       currentPage: 1,
       pageSize: 10,
       totalItemsCount: 0,
-      paginationData: [] as DomainSharesType[]
+      paginationData: [] as DomainStockType[]
     }
   },
   reducers: {
-    setShares(state, action: PayloadAction<SharesType[]>) {
-      state.shares = action.payload.map((shr, i) => ({order: i + 1, ...shr}))
+    setStock(state, action: PayloadAction<StockType[]>) {
+      state.stock = action.payload.map((shr, i) => ({order: i + 1, ...shr}))
     },
     paginator(state) {
-      state.pagination.totalItemsCount = state.shares.length
+      state.pagination.totalItemsCount = state.stock.length
       const start = state.pagination.pageSize * (state.pagination.currentPage - 1)
       const end = start + state.pagination.pageSize
-      state.pagination.paginationData = state.shares.slice(start, end)
+      state.pagination.paginationData = state.stock.slice(start, end)
     },
     setCurrentPage(state, action: PayloadAction<{ currentPage: number }>) {
       state.pagination.currentPage = action.payload.currentPage
@@ -63,10 +63,10 @@ export const slice = createSlice({
   }
 })
 
-export const sharesSlice = slice.reducer
-export const {setShares, paginator, setCurrentPage, setPageSize, setCompany} = slice.actions
+export const stockSlice = slice.reducer
+export const {setStock, paginator, setCurrentPage, setPageSize, setCompany} = slice.actions
 
 //types
-export type DomainSharesType = SharesType & { order: number }
+export type DomainStockType = StockType & { order: number }
 export type CompanyType = 'tsla' | 'amzn' | 'aapl' | 'msft'
 

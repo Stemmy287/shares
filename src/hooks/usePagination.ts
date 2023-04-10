@@ -1,5 +1,5 @@
 import {useMemo} from "react";
-import {range} from "common/utils/range";
+import {range} from "common/utils/range/range";
 
 export const usePagination = ({currentPage, totalItemsCount, pageSize, siblingCount}: UsePaginationParamsType) => {
 
@@ -27,7 +27,8 @@ export const usePagination = ({currentPage, totalItemsCount, pageSize, siblingCo
     const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPagesCount)
 
     /*
-      We do not show dots just when there is just one page number to be inserted between the extremes of sibling and the page limits i.e 1 and totalPageCount. Hence we are using leftSiblingIndex > 2 and rightSiblingIndex < totalPageCount - 2
+      We do not show dots just when there is just one page number to be inserted between the extremes of sibling and the page limits i.e 1 and totalPageCount.
+      Hence we are using leftSiblingIndex > 2 and rightSiblingIndex < totalPageCount - 2
     */
     const shouldShowLeftDots = leftSiblingIndex > 2
     const shouldShowRightDots = rightSiblingIndex < totalPagesCount - 2

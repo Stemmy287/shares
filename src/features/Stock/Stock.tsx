@@ -1,23 +1,23 @@
 import React, {useEffect} from 'react';
-import s from './shares.module.scss'
+import s from 'features/Stock/stock.module.scss'
 import {TableBody} from "common/compontnes/Table/TableBody/TableBody";
 import {TableHead} from "common/compontnes/Table/TableHead/TableHead";
 import {useAppSelector} from "hooks/useAppSelector";
 import {useAppDispatch} from "hooks/useAppDispatch";
-import {fetchSharesTC, paginator, setCurrentPage, setPageSize} from "features/Shares/sharesSlice";
+import {fetchStockTC, paginator, setCurrentPage, setPageSize} from "features/Stock/stockSlice";
 import {
   companySelector,
   currentPageSelector,
   pageSizeSelector,
-  sharesPaginatedSelector,
+  stockPaginatedSelector,
   totalItemsCountSelector
-} from "features/Shares/sharesSelectors";
+} from "features/Stock/stockSelectors";
 import {Pagination} from "common/compontnes/Pagintaton/Pagination";
-import {readableCompany} from "common/utils/readableCompany";
+import {readableCompany} from "common/utils/readableCompany/readableCompany";
 
-export const Shares = () => {
+export const Stock = () => {
 
-  const sharesPaginated = useAppSelector(sharesPaginatedSelector)
+  const stockPaginated = useAppSelector(stockPaginatedSelector)
 
   const company = useAppSelector(companySelector)
 
@@ -28,7 +28,7 @@ export const Shares = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(fetchSharesTC())
+    dispatch(fetchStockTC())
   }, [dispatch, company])
 
   useEffect(() => {
@@ -46,11 +46,11 @@ export const Shares = () => {
   const tableHeadRows = ['Order', 'Open', 'Close', 'High', 'Low', 'Volume', 'Date']
 
   return (
-    <div className={s.shares_container}>
+    <div className={s.stock_container}>
       <h1 className={s.title}>{readableCompany(company)}</h1>
         <table className={s.table}>
           <TableHead rows={tableHeadRows}/>
-          <TableBody items={sharesPaginated}/>
+          <TableBody items={stockPaginated}/>
         </table>
       <div className={s.pagination_container}>
         <Pagination

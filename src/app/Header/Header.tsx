@@ -5,9 +5,9 @@ import {ReactComponent as AppleIcon} from "common/icons/apple-173-svgrepo-com.sv
 import {ReactComponent as MicrosoftIcon} from "common/icons/microsoft-svgrepo-com.svg";
 import {ReactComponent as AmazonIcon} from "common/icons/amazon-160-svgrepo-com.svg";
 import {useAppSelector} from "hooks/useAppSelector";
-import {companySelector} from "features/Shares/sharesSelectors";
+import {companySelector} from "features/Stock/stockSelectors";
 import {useAppDispatch} from "hooks/useAppDispatch";
-import {CompanyType, setCompany} from "features/Shares/sharesSlice";
+import {CompanyType, setCompany} from "features/Stock/stockSlice";
 
 export const Header = () => {
 
