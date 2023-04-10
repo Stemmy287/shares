@@ -4,9 +4,11 @@ const instance = axios.create({
   baseURL: 'https://cloud.iexapis.com/'
 })
 
+const token = ''
+
 export const stockApi = {
   getStock(company: string) {
-    return instance.get<StockType[]>(`stable/stock/${company}/chart/?token=pk_7aff2648ca544d38a1f4cdf7bbe7f11d`)
+    return instance.get<StockType[]>(`stable/stock/${company}/chart/?token=${token}`)
       .then(res => res.data)
   }
 }
