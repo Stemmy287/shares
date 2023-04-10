@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import s from './header.module.scss'
 import {ReactComponent as TeslaIcon} from "common/icons/tesla-svgrepo-com.svg";
 import {ReactComponent as AppleIcon} from "common/icons/apple-173-svgrepo-com.svg";
@@ -9,7 +9,7 @@ import {companySelector} from "features/Stock/stockSelectors";
 import {useAppDispatch} from "hooks/useAppDispatch";
 import {CompanyType, setCompany} from "features/Stock/stockSlice";
 
-export const Header = () => {
+export const Header = memo(() => {
 
   const company = useAppSelector(companySelector)
 
@@ -27,5 +27,5 @@ export const Header = () => {
       <AmazonIcon className={company === 'amzn' ? `${s.icons} ${s.icon_active}` : s.icons} onClick={() => {onCompanyChange('amzn')}}/>
     </header>
   );
-};
+});
 

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import s from './pagination.module.scss'
 import {usePagination} from "hooks/usePagination";
 import {ReactComponent as PaginationArrow} from 'common/icons/paginationArrow.svg'
@@ -13,7 +13,7 @@ type PropsType = {
   onPageSizeChange: (pageSize: string) => void
 }
 
-export const Pagination: FC<PropsType> = ({
+export const Pagination: FC<PropsType> = memo(({
                                             currentPage,
                                             pageSize,
                                             totalItemsCount,
@@ -67,5 +67,5 @@ export const Pagination: FC<PropsType> = ({
       />
     </div>
   );
-};
+});
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './errorBar.module.scss'
 import {useAppSelector} from "hooks/useAppSelector";
 import {errorSelector} from "app/appSelectors";
@@ -16,6 +16,15 @@ export const ErrorBar = () => {
   const onClose = () => {
     dispatch(setError({error: null}))
   }
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      onClose()
+    }, 5000)
+    return () => {
+      clearTimeout(id)
+    }
+  })
 
   return (
     <div className={s.error}>

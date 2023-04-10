@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import s from 'common/compontnes/Table/TableHead/tableHead.module.scss'
 
 type PropsType = {
   rows: string[]
 }
 
-export const TableHead:FC<PropsType> = ({rows}) => {
+export const TableHead:FC<PropsType> = memo(({rows}) => {
   return (
     <thead>
     <tr>
@@ -13,5 +13,5 @@ export const TableHead:FC<PropsType> = ({rows}) => {
     </tr>
     </thead>
   );
-};
+});
 

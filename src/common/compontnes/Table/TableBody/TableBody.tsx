@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import s from 'common/compontnes/Table/TableBody/tableBody.module.scss'
 import {DomainStockType, paginator, setStock} from "features/Stock/stockSlice";
 import {DragDropContext, Draggable, DraggingStyle, Droppable, DropResult, NotDraggingStyle} from "react-beautiful-dnd";
@@ -10,7 +10,7 @@ type PropsType = {
   items: DomainStockType[]
 }
 
-export const TableBody: FC<PropsType> = ({items}) => {
+export const TableBody: FC<PropsType> = memo(({items}) => {
 
   const dispatch = useAppDispatch()
 
@@ -43,7 +43,7 @@ export const TableBody: FC<PropsType> = ({items}) => {
       justifyContent: isDragging ? 'space-around' : '',
       ...draggableStyle
     }
-    
+
   };
 
   return (
@@ -80,5 +80,5 @@ export const TableBody: FC<PropsType> = ({items}) => {
       </Droppable>
     </DragDropContext>
   );
-};
+});
 

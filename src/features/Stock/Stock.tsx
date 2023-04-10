@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 import s from 'features/Stock/stock.module.scss'
 import {TableBody} from "common/compontnes/Table/TableBody/TableBody";
 import {TableHead} from "common/compontnes/Table/TableHead/TableHead";
@@ -15,7 +15,7 @@ import {
 import {Pagination} from "common/compontnes/Pagintaton/Pagination";
 import {readableCompany} from "common/utils/readableCompany/readableCompany";
 
-export const Stock = () => {
+export const Stock = memo(() => {
 
   const stockPaginated = useAppSelector(stockPaginatedSelector)
 
@@ -35,13 +35,13 @@ export const Stock = () => {
     dispatch(paginator())
   }, [dispatch, currentPage, pageSize])
 
-  const onCurrentPageChange = (currentPage: number) => {
+  const onCurrentPageChange = useCallback((currentPage: number) => {
     dispatch(setCurrentPage({currentPage}))
-  }
+  }, [dispatch])
 
-  const onPageSizeChange = (pageSize: string) => {
+  const onPageSizeChange = useCallback((pageSize: string) => {
     dispatch(setPageSize({pageSize: +pageSize}))
-  }
+  }, [dispatch])
 
   const tableHeadRows = ['Order', 'Open', 'Close', 'High', 'Low', 'Volume', 'Date']
 
@@ -64,5 +64,5 @@ export const Stock = () => {
       </div>
     </div>
   );
-};
+});
 
