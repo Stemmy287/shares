@@ -52,7 +52,7 @@ export const Stock = memo(() => {
           <TableHead rows={tableHeadRows}/>
           <TableBody items={stockPaginated}/>
         </table>
-      <div className={s.pagination_container}>
+      {!!totalItemsCount && <div className={s.pagination_container}>
         <Pagination
           currentPage={currentPage}
           pageSize={pageSize}
@@ -61,7 +61,7 @@ export const Stock = memo(() => {
           onPageChange={onCurrentPageChange}
           onPageSizeChange={onPageSizeChange}
         />
-      </div>
+      </div>}
     </div>
   );
 });
