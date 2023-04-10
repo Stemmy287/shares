@@ -4,7 +4,7 @@ const instance = axios.create({
   baseURL: 'https://cloud.iexapis.com/'
 })
 
-const token = ''
+const token = '' //insert your token
 
 export const stockApi = {
   getStock(company: string) {

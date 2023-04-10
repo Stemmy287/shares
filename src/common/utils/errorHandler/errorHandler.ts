@@ -9,7 +9,6 @@ import {setError} from "app/appReducer";
  */
 
 export const errorHandler = (e: Error | AxiosError<{error: string}>, dispatch: Dispatch) => {
-  console.log(e)
   const err = e as Error | AxiosError<{ error: string }>
   if (axios.isAxiosError(err)) {
     const error = err.response?.data ? err.response.data : err.message
