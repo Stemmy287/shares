@@ -16,5 +16,5 @@ const slice = createSlice({
   }
 })
 
-export const appSlice = slice.reducer
+export const appReducer = slice.reducer
 export const {setLoading, setError} = slice.actions

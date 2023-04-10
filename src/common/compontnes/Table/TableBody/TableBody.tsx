@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import s from 'common/compontnes/Table/TableBody/tableBody.module.scss'
-import {DomainStockType, paginator, setStock} from "features/Stock/stockSlice";
+import {DomainStockType, paginator, setStock} from "features/Stock/stockReducer";
 import {DragDropContext, Draggable, DraggingStyle, Droppable, DropResult, NotDraggingStyle} from "react-beautiful-dnd";
 import {useAppDispatch} from "hooks/useAppDispatch";
 import {useAppSelector} from "hooks/useAppSelector";

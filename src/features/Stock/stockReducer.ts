@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {stockApi, StockType} from "features/Stock/stockApi";
 import {AppRootStateType} from "app/store";
-import {setLoading} from "app/appSlice";
+import {setLoading} from "app/appReducer";
 import {errorHandler} from "common/utils/errorHandler/errorHandler";
 import {AxiosError} from "axios";
 
@@ -27,7 +27,7 @@ export const fetchStockTC = createAsyncThunk('shares/fetchShares', async (param,
   }
 })
 
-export const slice = createSlice({
+const slice = createSlice({
   name: 'stockSlice',
   initialState: {
     stock: [] as DomainStockType[],
@@ -54,7 +54,7 @@ export const slice = createSlice({
     setCurrentPage(state, action: PayloadAction<{ currentPage: number }>) {
       state.pagination.currentPage = action.payload.currentPage
     },
-    setPageSize(state, action: PayloadAction<{ pageSize: number }>) {
+    setPageSize(state, action: PayloadAction<{ pageSize: number}>) {
       state.pagination.pageSize = action.payload.pageSize
     },
     setCompany(state, action: PayloadAction<{ company: CompanyType }>) {
@@ -63,10 +63,12 @@ export const slice = createSlice({
   }
 })
 
-export const stockSlice = slice.reducer
+export const stockReducer = slice.reducer
 export const {setStock, paginator, setCurrentPage, setPageSize, setCompany} = slice.actions
 
 //types
 export type DomainStockType = StockType & { order: number }
 export type CompanyType = 'tsla' | 'amzn' | 'aapl' | 'msft'
+
+export type InitialStateType = ReturnType<typeof slice.getInitialState>
 

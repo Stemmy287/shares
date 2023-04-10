@@ -1,6 +1,6 @@
 import axios, {AxiosError} from "axios";
 import {Dispatch} from "@reduxjs/toolkit";
-import {setError} from "app/appSlice";
+import {setError} from "app/appReducer";
 
 /**
  * server error handler

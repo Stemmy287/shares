@@ -4,7 +4,7 @@ import {TableBody} from "common/compontnes/Table/TableBody/TableBody";
 import {TableHead} from "common/compontnes/Table/TableHead/TableHead";
 import {useAppSelector} from "hooks/useAppSelector";
 import {useAppDispatch} from "hooks/useAppDispatch";
-import {fetchStockTC, paginator, setCurrentPage, setPageSize} from "features/Stock/stockSlice";
+import {fetchStockTC, paginator, setCurrentPage, setPageSize} from "features/Stock/stockReducer";
 import {
   companySelector,
   currentPageSelector,

@@ -7,7 +7,7 @@ import {ReactComponent as AmazonIcon} from "common/icons/amazon-160-svgrepo-com.
 import {useAppSelector} from "hooks/useAppSelector";
 import {companySelector} from "features/Stock/stockSelectors";
 import {useAppDispatch} from "hooks/useAppDispatch";
-import {CompanyType, setCompany} from "features/Stock/stockSlice";
+import {CompanyType, setCompany} from "features/Stock/stockReducer";
 
 export const Header = () => {
 
