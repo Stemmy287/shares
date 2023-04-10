@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {stockApi, StockType} from "features/Stock/stockApi";
 import {AppRootStateType} from "app/store";
-import {setLoading} from "app/appReducer";
+import {setLoading} from "app/appSlice";
 import {errorHandler} from "common/utils/errorHandler/errorHandler";
 import {AxiosError} from "axios";
 

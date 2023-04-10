@@ -1,4 +1,4 @@
-import {CompanyType} from "features/Stock/stockReducer";
+import {CompanyType} from "features/Stock/stockSlice";
 
 /**
  * returns the name in readable form

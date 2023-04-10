@@ -1,7 +1,7 @@
 import {AnyAction, combineReducers, configureStore, ThunkDispatch} from "@reduxjs/toolkit";
 
-import {appReducer} from "app/appReducer";
-import {stockReducer} from "features/Stock/stockReducer";
+import {appReducer} from "app/appSlice";
+import {stockReducer} from "features/Stock/stockSlice";
 
 const rootReducer = combineReducers({
   app: appReducer,
